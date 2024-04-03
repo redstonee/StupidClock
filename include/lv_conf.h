@@ -522,7 +522,7 @@
 
 #define LV_USE_IMAGE      1   /*Requires: lv_label*/
 
-#define LV_USE_IMAGEBUTTON     0
+#define LV_USE_IMAGEBUTTON     1
 
 #define LV_USE_KEYBOARD   0
 

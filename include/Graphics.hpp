@@ -5,7 +5,12 @@
 #include <lvgl.h>
 #include <vector>
 
+#include "Network.hpp"
 #include "config.h"
+
+extern "C" {
+LV_IMG_DECLARE(wifi_connected)
+}
 
 namespace GFXDriver {
 static TFT_eSPI tft;
@@ -105,5 +110,27 @@ void drawTest() {
   auto btnText = lv_label_create(btn);
   lv_label_set_text(btnText, "Fuck Me");
   lv_obj_center(btnText);
+}
+
+void drawUI() {
+  auto timeLabel = lv_label_create(lv_scr_act());
+  lv_obj_align(timeLabel, LV_ALIGN_CENTER, 0, -30);
+  lv_label_set_text(timeLabel, "11:45:14");
+  lv_obj_set_style_text_font(timeLabel, &lv_font_montserrat_36, LV_PART_MAIN);
+
+  auto networkBtn = lv_imagebutton_create(lv_scr_act());
+  lv_obj_align(networkBtn, LV_IMAGE_ALIGN_TOP_LEFT, 0, 0);
+  lv_obj_set_size(networkBtn, 64, 64);
+  lv_imagebutton_set_src(networkBtn, LV_IMAGEBUTTON_STATE_RELEASED, nullptr,
+                         &wifi_connected, nullptr);
+
+  lv_obj_add_event_cb(
+      networkBtn,
+      [](lv_event_t *e) {
+        xTaskCreate(Network::smartConfigTask, "SmartConfigTask", 4096, nullptr,
+                    1, nullptr);
+      },
+      LV_EVENT_CLICKED, nullptr);
+      
 }
 } // namespace Graphics
