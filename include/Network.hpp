@@ -48,6 +48,9 @@ namespace Network
     {
         wifiStatus = WiFiStatus::CONNECTING;
         WiFi.beginSmartConfig();
+
+        Serial.println("Waiting for SmartConfig.");
+
         auto startTime = millis();
         while (millis() - startTime < SMART_CONFIG_TIMEOUT_MS)
         {
@@ -55,16 +58,20 @@ namespace Network
             {
                 WiFi.setAutoConnect(true);
                 WiFi.setAutoReconnect(true);
-                WiFi.stopSmartConfig();
+                Serial.println("SmartConfig received.");
                 break;
             }
             delay(1000);
         }
+        WiFi.stopSmartConfig();
         if (WiFi.status() != WL_CONNECTED)
         {
+            Serial.println("SmartConfig failed.");
             WiFi.disconnect();
             setWiFiStatus(WiFiStatus::DISCONNECTED);
         }
+
+        vTaskDelete(nullptr);
     }
 
     void ntpTask(void *shit)
@@ -79,5 +86,18 @@ namespace Network
 
             delay(10000);
         }
+    }
+
+    void removeNetwork()
+    {
+        WiFi.setAutoConnect(false);
+        WiFi.setAutoReconnect(false);
+        WiFi.disconnect();
+    }
+
+    void init()
+    {
+        WiFi.begin();
+        xTaskCreate(checkWiFiTask, "checkWiFiTask", 1024, nullptr, 1, nullptr);
     }
 } // namespace Network

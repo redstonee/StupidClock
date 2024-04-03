@@ -9,6 +9,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   Graphics::initDriver();
+
+  Network::init();
   // Graphics::drawTest();
   Graphics::drawUI();
 }
