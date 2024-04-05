@@ -6,7 +6,7 @@ namespace RTC {
     extern ThreeWire wire;
     extern RtcDS1302<ThreeWire> rtc;
 
-    extern RtcDateTime testDT;
+    // extern RtcDateTime testDT;
 
     void init();
 
@@ -15,18 +15,18 @@ namespace RTC {
         rtc.SetDateTime(RtcDateTime(year, month, day, hour, minute, second));
     }
 
-    // inline void setDateTime(uint32_t timestamp) {
-    //      RtcDateTime dt;
-    //      dt.InitWithUnix32Time(timestamp);
-    //      rtc.SetDateTime(dt);
-    //  }
-
     inline void setDateTime(uint32_t timestamp) {
-        testDT.InitWithUnix32Time(timestamp);
-    }
+         RtcDateTime dt;
+         dt.InitWithUnix32Time(timestamp);
+         rtc.SetDateTime(dt);
+     }
 
-    inline RtcDateTime getDateTime() { return testDT; }
-    // inline RtcDateTime getDateTime() { return rtc.GetDateTime(); }
+    // inline void setDateTime(uint32_t timestamp) {
+    //     testDT.InitWithUnix32Time(timestamp);
+    // }
+
+    // inline RtcDateTime getDateTime() { return testDT; }
+    inline RtcDateTime getDateTime() { return rtc.GetDateTime(); }
 
     inline uint16_t getYear() { return getDateTime().Year(); }
 

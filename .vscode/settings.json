@@ -1,5 +1,11 @@
 {
     "files.associations": {
-        "pgmspace.h": "c"
+        "pgmspace.h": "c",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "fstream": "cpp",
+        "istream": "cpp",
+        "ostream": "cpp",
+        "sstream": "cpp"
     }
 }

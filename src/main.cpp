@@ -8,13 +8,11 @@
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Graphics::initDriver();
   Graphics::begin();
-
+  RTC::init();
   Network::init();
   
 }
-
 
 
 void loop() {

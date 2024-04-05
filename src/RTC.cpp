@@ -5,7 +5,7 @@ namespace RTC {
     ThreeWire wire(DS_DATA, DS_CLK, DS_RST);
     RtcDS1302<ThreeWire> rtc(wire);
 
-    RtcDateTime testDT;
+    // RtcDateTime testDT;
 
     void init() {
         rtc.Begin();

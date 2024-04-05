@@ -70,7 +70,7 @@ namespace GFXDriver {
         lv_log_register_print_cb(log_print);
 #endif
 
-        static uint32_t draw_buf[LCD_WIDTH * LCD_HEIGHT / 4];
+        static uint32_t draw_buf[LCD_WIDTH * LCD_HEIGHT / 40];
         auto disp = lv_display_create(LCD_WIDTH, LCD_HEIGHT);
         lv_display_set_flush_cb(disp, display_flush);
         lv_display_set_buffers(disp, draw_buf, NULL, sizeof(draw_buf),
@@ -214,6 +214,9 @@ namespace Graphics {
     }
 
     void begin() {
+        GFXDriver::init();
+        lvglMutex = xSemaphoreCreateMutex();
+
         timeLabel = lv_label_create(lv_scr_act());
         lv_obj_align(timeLabel, LV_ALIGN_CENTER, 0, -40);
         // lv_label_set_text(timeLabel, "11:45:14");
@@ -232,8 +235,8 @@ namespace Graphics {
 
         sayingLabel = lv_label_create(lv_scr_act());
         lv_obj_align(sayingLabel, LV_ALIGN_CENTER, 0, 40);
-        lv_obj_set_style_text_font(sayingLabel, &dengXian, LV_PART_MAIN);
-        lv_label_set_text(sayingLabel, "妈了个屄的");
+        // lv_obj_set_style_text_font(sayingLabel, &dengXian, LV_PART_MAIN);
+        // lv_label_set_text(sayingLabel, "妈了个屄的");
 
         networkBtn = lv_imagebutton_create(lv_scr_act());
         lv_obj_align(networkBtn, LV_IMAGE_ALIGN_TOP_LEFT, 0, 0);
