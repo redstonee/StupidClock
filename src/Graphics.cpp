@@ -235,8 +235,6 @@ namespace Graphics {
 
         sayingLabel = lv_label_create(lv_scr_act());
         lv_obj_align(sayingLabel, LV_ALIGN_CENTER, 0, 40);
-        // lv_obj_set_style_text_font(sayingLabel, &dengXian, LV_PART_MAIN);
-        // lv_label_set_text(sayingLabel, "妈了个屄的");
 
         networkBtn = lv_imagebutton_create(lv_scr_act());
         lv_obj_align(networkBtn, LV_IMAGE_ALIGN_TOP_LEFT, 0, 0);
